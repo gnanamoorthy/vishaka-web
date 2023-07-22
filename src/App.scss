@@ -1,0 +1,146 @@
+@import "./assets/scss/color";
+@import "./assets/scss/variables";
+@import "./assets/scss/modal";
+@import "./assets/scss/input";
+@import "./assets/scss/button";
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+$roboto: "Roboto", serif;
+body,
+html {
+  font-family: $roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+  overflow-x: hidden;
+  background-color: #f5f7ff;
+}
+.main-body {
+  .page-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    .heading {
+      font-size: 1.5rem;
+    }
+  }
+  .table-container {
+    margin-top: 10px;
+    height: 100%;
+    .action-icons {
+      .edit-icon {
+        margin: 5px;
+        border-radius: 5px;
+        padding: 2px;
+
+        &:hover {
+          color: $white;
+          background-color: $gray-mid;
+          transition: all 0.5s ease-out;
+        }
+      }
+      .delete-icon {
+        color: $red;
+        margin: 5px;
+        border-radius: 5px;
+        padding: 2px;
+        &:hover {
+          background-color: $gray-mid;
+          transition: all 0.5s ease-out;
+        }
+      }
+    }
+  }
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: #2196f3;
+  border-width: 1.5px;
+}
+
+.login-main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $roboto;
+}
+.login-card {
+  .login-card-header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+
+    .logo {
+      width: 128px;
+      height: 128px;
+    }
+    .login-description {
+      display: block;
+      line-height: 20px;
+      font-size: 14px;
+      color: $gray-dark;
+      margin-top: 11px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .login-card-body {
+    padding: 20px 30px 15px;
+    border-radius: 0 0 3px 3px;
+
+    .login-input {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 14px !important;
+      height: 2.692rem;
+    }
+    .login-form-group {
+      margin-bottom: 0.5rem;
+    }
+    .login-btn {
+      width: 100%;
+      font-size: 1rem;
+      line-height: 28px;
+      border-radius: 2px;
+      height: 2.692rem;
+      color: $white;
+      margin-top: 20px;
+    }
+    .form-label {
+      font-size: 14px !important;
+    }
+    .login-error {
+      align-items: center;
+      font-size: 0.8rem;
+      color: $red;
+      font-weight: bold;
+    }
+  }
+}
+
+.total-preview {
+  text-align: right;
+  font-size: larger;
+
+  .tax-preview {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .tax-name {
+      margin-right: 10px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    .tax-value {
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+  }
+}

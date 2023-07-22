@@ -1,0 +1,31 @@
+label {
+  font-size: 12px;
+  font-weight: 500;
+}
+.form-control {
+  margin-bottom: 10px;
+}
+.form-control:focus {
+  box-shadow: none !important;
+  border-color: #2196f3;
+  border-width: 1.5px;
+}
+input {
+  font-size: 12px !important;
+}
+
+select {
+  font-size: 12px !important;
+  font-family: Roboto;
+}
+.form-select:focus {
+  box-shadow: none !important;
+  border-color: #2196f3;
+  border-width: 1.5px;
+}
+
+.select2 {
+  font-size: 12px !important;
+  font-family: Roboto;
+  height: 25px;
+}
