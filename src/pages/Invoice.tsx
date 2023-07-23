@@ -60,6 +60,7 @@ const Invoice = () => {
 
   const handleClose = async () => {
     setModelShow(false);
+    getAllInvoice();
   };
   const handleShow = () => {
     setModelShow(true);

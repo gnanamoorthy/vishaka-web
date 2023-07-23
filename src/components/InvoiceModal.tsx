@@ -93,6 +93,7 @@ export const InvoiceModal = ({
       const form = document.getElementById("invoiceForm") as HTMLFormElement;
       if (form) {
         form.reset();
+        setItemList([]);
         await getAllInvoice();
       }
     }
@@ -292,7 +293,13 @@ export const InvoiceModal = ({
             <Col md={2}>
               <Form.Group className="mb-3" controlId="rate">
                 <Form.Label>Rate</Form.Label>
-                <Form.Control type="number" name="rate" min="0" required />
+                <Form.Control
+                  type="number"
+                  name="rate"
+                  min="0"
+                  step="0.01"
+                  required
+                />
               </Form.Group>
             </Col>
           </Row>
