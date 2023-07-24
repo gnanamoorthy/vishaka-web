@@ -9,7 +9,7 @@ import { getFormJSON, toast } from "../utils";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import invoiceService from "../service/invoiceService";
-import StateManagedSelect from "react-select/dist/declarations/src/stateManager";
+import Dialog from "./Dialog";
 
 interface InvoiceModalProps {
   modelShow: boolean;
@@ -32,6 +32,8 @@ export const InvoiceModal = ({
 }: InvoiceModalProps) => {
   const [itemList, setItemList] = useState<Stock[]>([]);
   const [total, setTotal] = useState<number>();
+  const [cgstAmount, setCgstAmount] = useState<number>();
+  const [sgstAmount, setSgstAmount] = useState<number>();
   const [stockId, setStockId] = useState<StockSelect>();
   const [crrDate, setCurrDate] = useState<Date | null>(new Date());
   const [dispatchedDate, setDispatchedDate] = useState<Date | null>(new Date());
@@ -62,7 +64,9 @@ export const InvoiceModal = ({
   }
 
   const deleteItem = (value: Stock) => {
-    setItemList((pre) => pre.filter((stock) => stock.id !== value.id));
+    Dialog.getConfirm(() => {
+      setItemList((pre) => pre.filter((stock) => stock.id !== value.id));
+    });
   };
 
   const calculateTotal = () => {
@@ -75,6 +79,9 @@ export const InvoiceModal = ({
       },
       0
     );
+    setCgstAmount((total * 6) / 100);
+    setSgstAmount((total * 6) / 100);
+
     setTotal((total * (6 + 6)) / 100 + total);
   };
 
@@ -327,10 +334,12 @@ export const InvoiceModal = ({
               <div className="tax-preview">
                 <span className="tax-name">SGST:</span>
                 <span className="tax-value">6%</span>
+                <span className="tax-value">{sgstAmount}</span>
               </div>
               <div className="tax-preview">
                 <span className="tax-name">CGST:</span>
                 <span className="tax-value">6%</span>
+                <span className="tax-value">{cgstAmount}</span>
               </div>
               <div className="tax-preview">
                 <span className="tax-name">Total: </span>

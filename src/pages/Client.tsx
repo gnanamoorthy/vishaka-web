@@ -10,6 +10,7 @@ import { getFormJSON } from "../utils/utils";
 import clientService from "../service/clientService";
 import { toast } from "../utils";
 import { TClient, TStock } from "../types";
+import Dialog from "../components/Dialog";
 
 const Client = () => {
   const [clientList, setClientList] = useState([]);
@@ -38,11 +39,13 @@ const Client = () => {
   };
 
   const deleteClient = async (id: number) => {
-    const response = await clientService.deleteClient(id);
-    if (response.success) {
-      toast.success(response.message);
-      await getAllClient();
-    }
+    Dialog.getConfirm(async () => {
+      const response = await clientService.deleteClient(id);
+      if (response.success) {
+        toast.success(response.message);
+        await getAllClient();
+      }
+    });
   };
 
   const editOnClick = async (data: TClient) => {

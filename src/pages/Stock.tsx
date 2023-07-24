@@ -10,7 +10,7 @@ import { getFormJSON } from "../utils/utils";
 import stockService from "../service/stockService";
 import { toast } from "../utils";
 import { TStock } from "../types";
-
+import Dialog from "../components/Dialog";
 const Stock = () => {
   const [stocklist, setStocklist] = useState([]);
   const [stockId, setStockId] = useState(0);
@@ -37,11 +37,13 @@ const Stock = () => {
   };
 
   const deleteStock = async (id: number) => {
-    const response = await stockService.deleteStock(id);
-    if (response.success) {
-      toast.success(response.message);
-      await getAllStock();
-    }
+    Dialog.getConfirm(async () => {
+      const response = await stockService.deleteStock(id);
+      if (response.success) {
+        toast.success(response.message);
+        await getAllStock();
+      }
+    });
   };
 
   const editOnClick = async (data: TStock) => {
