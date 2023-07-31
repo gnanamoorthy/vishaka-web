@@ -94,6 +94,7 @@ const Client = () => {
 
   const columns = [
     { name: "name", header: "Client Name ", defaultFlex: 1 },
+    { name: "gstNo", header: "GstNo" },
     { name: "address", header: "Address", defaultFlex: 1 },
     {
       name: "phoneNo",

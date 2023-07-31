@@ -33,6 +33,7 @@ const Invoice = () => {
           return {
             value: data.id,
             label: data.stockName,
+            ...data,
           };
         })
       );

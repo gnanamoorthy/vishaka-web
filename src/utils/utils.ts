@@ -57,6 +57,10 @@ const isSuccess = (response: any) => {
   return response?.statusCode === status.SUCCESS;
 };
 
+const gstCalculate = (amount: number, percentage: number) => {
+  return (amount * percentage) / 100;
+};
+
 export {
   getToken,
   setToken,
@@ -68,4 +72,5 @@ export {
   getName,
   setName,
   isSuccess,
+  gstCalculate,
 };

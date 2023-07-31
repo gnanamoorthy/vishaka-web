@@ -19,6 +19,9 @@ const Stock = () => {
   const [ourPrice, setOurPrice] = useState(0);
   const [marketPrice, setMarketPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [cgst, setCgst] = useState(0);
+  const [sgst, setSgst] = useState(0);
+  const [discount, setDiscount] = useState(0);
   const addStock = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     const body = getFormJSON(e.target);
@@ -54,6 +57,9 @@ const Stock = () => {
     setStockName(data.stockName);
     setOurPrice(data.ourPrice);
     setQuantity(data.quantity);
+    setCgst(data.cgst);
+    setSgst(data.sgst);
+    setDiscount(data.discount);
   };
 
   const resetForm = async () => {
@@ -63,6 +69,9 @@ const Stock = () => {
     setStockName("");
     setOurPrice(0);
     setQuantity(0);
+    setCgst(0);
+    setSgst(0);
+    setDiscount(0);
   };
 
   useEffect(() => {
@@ -86,19 +95,33 @@ const Stock = () => {
   const gridStyle = { minHeight: 550, marginTop: 10 };
 
   const columns = [
-    { name: "stockName", header: "Stock Name ", defaultFlex: 1 },
-    { name: "stockNo", header: "Opening Stock No", defaultFlex: 1 },
+    { name: "code", header: "Code" },
+    { name: "stockName", header: "Stock Name" },
+    { name: "stockNo", header: "Opening Stock No" },
     {
       name: "ourPrice",
       header: "Our Price",
       defaultWidth: 100,
-      defaultFlex: 1,
     },
     {
       name: "marketPrice",
-      header: "Market Price ",
+      header: "Market Price",
       //minWidth: 100,
-      defaultFlex: 1,
+    },
+    {
+      name: "cgst",
+      header: "CGST",
+      //minWidth: 100,
+    },
+    {
+      name: "sgst",
+      header: "SGST",
+      //minWidth: 100,
+    },
+    {
+      name: "discount",
+      header: "Discount",
+      //minWidth: 100,
     },
     {
       name: "id",
@@ -184,6 +207,7 @@ const Stock = () => {
                   <Form.Control
                     type="number"
                     name="ourPrice"
+                    min={0}
                     value={ourPrice}
                     onChange={(e) => setOurPrice(Number(e.target.value))}
                     required
@@ -196,6 +220,7 @@ const Stock = () => {
                   <Form.Control
                     type="number"
                     name="marketPrice"
+                    min={0}
                     value={marketPrice}
                     onChange={(e) => setMarketPrice(Number(e.target.value))}
                     required
@@ -208,8 +233,50 @@ const Stock = () => {
                   <Form.Control
                     type="number"
                     name="quantity"
+                    min={0}
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.target.value))}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group className="mb-3" controlId="cgst">
+                  <Form.Label>CGST </Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="cgst"
+                    min={0}
+                    value={cgst}
+                    onChange={(e) => setCgst(Number(e.target.value))}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="sgst">
+                  <Form.Label>SGST</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="sgst"
+                    min={0}
+                    value={sgst}
+                    onChange={(e) => setSgst(Number(e.target.value))}
+                    required
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group className="mb-3" controlId="discount">
+                  <Form.Label>Discount</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="discount"
+                    value={discount}
+                    min={0}
+                    onChange={(e) => setDiscount(Number(e.target.value))}
                     required
                   />
                 </Form.Group>

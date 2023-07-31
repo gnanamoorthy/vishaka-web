@@ -10,6 +10,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import invoiceService from "../service/invoiceService";
 import Dialog from "./Dialog";
+import { gstCalculate } from "../utils";
 
 interface InvoiceModalProps {
   modelShow: boolean;
@@ -38,6 +39,8 @@ export const InvoiceModal = ({
   const [crrDate, setCurrDate] = useState<Date | null>(new Date());
   const [dispatchedDate, setDispatchedDate] = useState<Date | null>(new Date());
   const [orderDate, setOrderDate] = useState<Date | null>(new Date());
+  const [itemQuantity, setItemQuantity] = useState<number>(0);
+
   async function addItem(e: React.SyntheticEvent) {
     e.preventDefault();
     if (!stockId?.value) {
@@ -45,15 +48,19 @@ export const InvoiceModal = ({
       return;
     }
     const data = getFormJSON(e.target);
-    const stockName: StockSelect = stockList.find(
+    const stock: StockSelect = stockList.find(
       (stock: StockSelect) => stock.value === stockId?.value
     );
-    let newStock: Stock;
-    newStock = {
-      id: stockId?.value,
-      item: stockName.value,
-      quantity: data.quantity,
-      rate: data.rate,
+    const taxableAmount = Number(data.quantity) * Number(data.rate);
+    const gst = Number(stock.cgst) + Number(stock.sgst);
+    const gstAmount = gstCalculate(taxableAmount, gst);
+    let newStock: any = {
+      ...stock,
+      ...data,
+      taxableAmount,
+      gst,
+      gstAmount,
+      amount: (taxableAmount + gstAmount).toFixed(2),
     };
     setItemList((pre) => [...pre, newStock]);
     const form = document.getElementById("itemForm") as HTMLFormElement;
@@ -93,6 +100,7 @@ export const InvoiceModal = ({
     }
     const body = getFormJSON(e.target);
     body.item = itemList;
+    body.netAmount = total;
     const response = await invoiceService.createInvoice(body);
     if (response.success) {
       toast.success(response.message);
@@ -101,40 +109,57 @@ export const InvoiceModal = ({
       if (form) {
         form.reset();
         setItemList([]);
-        await getAllInvoice();
       }
     }
   };
-
-  const getAllInvoice = async () => {};
-
+  const stockOnChange = (value: any) => {
+    setStockId(value);
+    setItemQuantity(value.quantity);
+  };
   useEffect(() => {
     calculateTotal();
   }, [itemList]);
-
+  const getItem = () => {};
   const columns = [
     {
-      name: "item",
+      name: "stockName",
       header: "Item",
-      //minWidth: 100,
-      defaultFlex: 1,
     },
     {
       name: "quantity",
       header: "Quantity",
-      //minWidth: 100,
-      defaultFlex: 1,
     },
     {
       name: "rate",
       header: "Rate",
-      //minWidth: 100,
-      defaultFlex: 1,
+    },
+    {
+      name: "marketPrice",
+      header: "Mrp",
+    },
+    {
+      name: "discount",
+      header: "Dis %",
+    },
+    {
+      name: "taxableAmount",
+      header: "Taxable value",
+    },
+    {
+      name: "gst",
+      header: "GST",
+    },
+    {
+      name: "gstAmount",
+      header: "GST AMT",
+    },
+    {
+      name: "amount",
+      header: "Amount",
     },
     {
       name: "id",
       header: "Action",
-      minWidth: 40,
       render: ({ data }: any) => {
         return (
           <div className="action-icons">
@@ -253,7 +278,7 @@ export const InvoiceModal = ({
               <Form.Group className="mb-3" controlId="invoiceTo">
                 <Form.Label>Invoice To</Form.Label>
                 <Form.Select name="invoiceTo" required>
-                  <option value="" disabled selected>
+                  <option value="" disabled defaultValue={""}>
                     select
                   </option>
                   {clientList.map((data: TClient) => (
@@ -285,7 +310,7 @@ export const InvoiceModal = ({
                   name="stockId"
                   id="stockId"
                   value={stockId}
-                  onChange={(value: any, action) => setStockId(value)}
+                  onChange={(value: any, action) => stockOnChange(value)}
                   placeholder="Enter Stock Name"
                   required
                 />
@@ -294,7 +319,14 @@ export const InvoiceModal = ({
             <Col md={2}>
               <Form.Group className="mb-3" controlId="quantity">
                 <Form.Label>Quantity</Form.Label>
-                <Form.Control type="number" name="quantity" min="0" required />
+                <Form.Control
+                  type="number"
+                  name="quantity"
+                  min="0"
+                  max={itemQuantity}
+                  placeholder={itemQuantity + " left"}
+                  required
+                />
               </Form.Group>
             </Col>
             <Col md={2}>
@@ -331,7 +363,7 @@ export const InvoiceModal = ({
               style={gridStyle}
             />
             <div className="total-preview">
-              <div className="tax-preview">
+              {/* <div className="tax-preview">
                 <span className="tax-name">SGST:</span>
                 <span className="tax-value">6%</span>
                 <span className="tax-value">{sgstAmount}</span>
@@ -340,7 +372,7 @@ export const InvoiceModal = ({
                 <span className="tax-name">CGST:</span>
                 <span className="tax-value">6%</span>
                 <span className="tax-value">{cgstAmount}</span>
-              </div>
+              </div> */}
               <div className="tax-preview">
                 <span className="tax-name">Total: </span>
                 <span className="tax-value">{total} </span>
