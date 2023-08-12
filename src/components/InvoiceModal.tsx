@@ -40,6 +40,7 @@ export const InvoiceModal = ({
   const [dispatchedDate, setDispatchedDate] = useState<Date | null>(new Date());
   const [orderDate, setOrderDate] = useState<Date | null>(new Date());
   const [itemQuantity, setItemQuantity] = useState<number>(0);
+  const [gstType, setGstType] = useState("GST");
 
   async function addItem(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -52,7 +53,13 @@ export const InvoiceModal = ({
       (stock: StockSelect) => stock.value === stockId?.value
     );
     const taxableAmount = Number(data.quantity) * Number(data.rate);
-    const gst = Number(stock.cgst) + Number(stock.sgst);
+    let gst;
+    if (gstType == "GST") {
+      gst = Number(data.cgst) + Number(data.sgst);
+    } else {
+      gst = Number(data.igst);
+    }
+
     const gstAmount = gstCalculate(taxableAmount, gst);
     let newStock: any = {
       ...stock,
@@ -341,6 +348,73 @@ export const InvoiceModal = ({
                 />
               </Form.Group>
             </Col>
+            <Col md={2}>
+              <Form.Group className="mb-3" controlId="gstType">
+                <Form.Label>GstType</Form.Label>
+                <Form.Select
+                  name="gstType"
+                  onChange={(e) => setGstType(e.target.value)}
+                  required
+                >
+                  <option value="GST">GST</option>
+                  <option value="IGST">IGST</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group className="mb-3" controlId="discount">
+                <Form.Label>Discount</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="discount"
+                  min="0"
+                  step="0.01"
+                  required
+                />
+              </Form.Group>
+            </Col>
+            {gstType === "GST" && (
+              <>
+                <Col>
+                  <Form.Group className="mb-3" controlId="cgst">
+                    <Form.Label>CGST</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="cgst"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="sgst">
+                    <Form.Label>SGST</Form.Label>
+                    <Form.Control
+                      type="number"
+                      name="sgst"
+                      min="0"
+                      step="0.01"
+                      required
+                    />
+                  </Form.Group>
+                </Col>
+              </>
+            )}
+            {gstType === "IGST" && (
+              <Col md={4}>
+                <Form.Group className="mb-3" controlId="igst">
+                  <Form.Label>IGST</Form.Label>
+                  <Form.Control
+                    type="number"
+                    name="igst"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                </Form.Group>
+              </Col>
+            )}
           </Row>
           <Row>
             <Button className="button" type="submit">
