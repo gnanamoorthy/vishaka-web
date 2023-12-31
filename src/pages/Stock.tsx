@@ -52,7 +52,7 @@ const Stock = () => {
   const editOnClick = async (data: TStock) => {
     handleShow();
     setStockId(Number(data.id));
-    setStockNo(data.stockNo);
+    setStockNo("" + data.quantity);
     setMarketPrice(data.marketPrice);
     setStockName(data.stockName);
     setOurPrice(data.ourPrice);
@@ -157,7 +157,7 @@ const Stock = () => {
                     type="text"
                     name="stockNo"
                     value={stockNo}
-                    onChange={(e) => setStockNo(e.target.value)}
+                    onChange={(e) => setStockNo("" + e.target.value)}
                     autoFocus
                     required
                   />
