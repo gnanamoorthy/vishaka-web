@@ -1,0 +1,79 @@
+.custom-accordion {
+  padding: 0px !important;
+  text-decoration: none;
+  --bs-accordion-border-radius: 0px;
+  --bs-accordion-border-width: 0px;
+  --bs-accordion-btn-active-icon: url(data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%230c63e4%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e);
+  --bs-accordion-active-bg: transparent;
+  --bs-accordion-btn-padding-x: 0px !important;
+  --bs-accordion-btn-padding-y: 0px !important;
+  --bs-accordion-bg: transparent;
+  .accordion-button {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+  .accordion-button:focus {
+    box-shadow: none;
+  }
+
+  .accordion-item {
+    background-color: transparent;
+    border: none;
+  }
+
+  .accordion-card {
+    --bs-card-cap-padding-y: 5px;
+    --bs-card-border-width: 0px;
+
+    .nav {
+      color: #000;
+      --bs-nav-link-hover-color: white;
+      border-bottom: 1px solid $gray-hover;
+      .nav-item {
+        font-weight: 400 !important;
+
+        .nav-link {
+          color: #000;
+          font-weight: 600;
+          font-size: 14px;
+          &:hover {
+            background-color: $gray-hover;
+          }
+          .nav-item-icon {
+            margin-right: 10px;
+            width: 15px;
+            height: 15px;
+          }
+        }
+        .active {
+          color: $theme-color !important;
+        }
+      }
+    }
+  }
+  .accordion-card-header {
+    background: #8a8a8a;
+    line-height: 20px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .accordion-card-header {
+    --bs-accordion-btn-active-icon: url(data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%230c63e4%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e);
+  }
+  .body-accordion {
+    border-radius: 3px 3px 0 0;
+  }
+
+  .accordion-header-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+  }
+
+  .accordion-card-footer {
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: end;
+    background-color: inherit;
+  }
+}

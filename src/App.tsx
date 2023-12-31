@@ -1,11 +1,13 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
-import "./App.scss";
 import HeaderSidebarWrapper from "./components/common/HeaderSidebarWrapper";
 import Stock from "./pages/Stock";
 import Client from "./pages/Client";
 import Invoice from "./pages/Invoice";
+import Payment from "./pages/Payment";
+import "./App.scss";
+
 function App() {
   return (
     <>
@@ -33,6 +35,14 @@ function App() {
           element={
             <HeaderSidebarWrapper>
               <Invoice />
+            </HeaderSidebarWrapper>
+          }
+        />
+        <Route
+          path="/payment"
+          element={
+            <HeaderSidebarWrapper>
+              <Payment />
             </HeaderSidebarWrapper>
           }
         />

@@ -51,6 +51,11 @@ const Header = () => {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
+              <Nav.Link as={NavLink} to={"/payment"}>
+                Payment
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
               <Nav.Link as={NavLink} to={"/report"}>
                 Report
               </Nav.Link>

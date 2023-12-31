@@ -3,11 +3,12 @@
 @import "./assets/scss/modal";
 @import "./assets/scss/input";
 @import "./assets/scss/button";
-
+@import "./assets/scss/accordion";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 $roboto: "Roboto", serif;
 body,
 html {
+  // height: 100vh;
   font-family: $roboto;
   font-size: 14px;
   font-weight: 400;
@@ -15,7 +16,12 @@ html {
   overflow-x: hidden;
   background-color: #f5f7ff;
 }
+
+.navbar {
+  position: sticky;
+}
 .main-body {
+  margin-top: 10px;
   .page-heading {
     display: flex;
     flex-direction: row;
